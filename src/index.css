@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+    .input-date {
+        @apply font-[38px] py-1 pl-3 pr-1 w-[90px] border-[1px] border-[#ccd5dd] outline-none rounded-[3px] font-bold;
+    }
+    
+    .label-date {
+        @apply mb-1 text-[8px] font-bold;
+    }
+}
+
+.font-poppins {
+    font-family: Poppins;
+    font-style: italic;
+    font-weight: 900;
+}
+
+/* npx tailwindcss -i ./src/index.css -o ./dist/index.css --watch */
