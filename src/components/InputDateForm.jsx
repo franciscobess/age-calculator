@@ -1,13 +1,11 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import arrowDown from './assets/icon-arrow.svg'
-import resetIcon from './assets/icon-reset.svg'
 import { BiReset } from "react-icons/bi";
 import Tooltip from "./Tooltip";
+import { DateCalcContext } from "./context/DateCalcContext";
 
 const InputDateForm = () => {
-    const [validDay, setValidDay] = useState(true)
-    const [validMonth, setValidMonth] = useState(true)
-    const [validYear, setValidYear] = useState(true)
+    const { validDay, setValidDay, validMonth, setValidMonth, validYear, setValidYear, setResultDay, setResultMonth, setResultYear } = useContext(DateCalcContext)
     const [showToolTip, setShowToolTip] = useState(false)
     const dayRef = useRef(null)
     const monthRef = useRef(null)
@@ -45,29 +43,63 @@ const InputDateForm = () => {
         yearRef.current.value = ""
     }
 
+    const daysDiff = (date) => {
+        const givenDate = new Date(date)
+        const currentDate = new Date()
+        const lastBirthDay = new Date(`${givenDate.getMonth() + 1}/${givenDate.getDate()}/${currentDate.getFullYear()}`)
+    }
+
+    const monthsDiff = (birthMonth) => {
+        const currentMonth = new Date().getMonth() + 1
+
+        if (currentMonth < birthMonth) {
+            return birthMonth - currentMonth
+        }
+
+        return currentMonth - birthMonth
+    }
+
+    const yearsDiff = (birthYear) => {
+        const currentYear = new Date().getFullYear()
+
+        return currentYear - birthYear
+    }
+
     const formSubmitHandler = (event) => {
         event.preventDefault()
 
         const day = event.target.day.value
         const month = event.target.month.value
         const year = event.target.year.value
+        let [localValidDay, localValidMonth, localValidYear] = [true, true, true]
+        const dateFromForm = `${month}/${day}/${year}`
 
         if (!thisDayIsValid(day)) {
+            localValidDay = false
             setValidDay(false)
+        } else {
+            setValidDay(true)
         }
 
         if (!thisMonthIsValid(month)) {
+            localValidMonth = false
             setValidMonth(false)
+        } else {
+            setValidMonth(true)
         }
 
         if (!thisYearIsValid(year)) {
+            localValidYear = false
             setValidYear(false)
+        } else {
+            setValidYear(true)
         }
 
-        if (validDay && validMonth && validYear) {
-            console.log(`${day}/${month}/${year}`)
+        if (localValidDay && localValidMonth && localValidYear) {
+            setResultYear(yearsDiff(year))
+            setResultMonth(monthsDiff(month))
+            // setResultDay(daysDiff(dateFromForm))
         }
-
     }
 
     return (
@@ -75,7 +107,7 @@ const InputDateForm = () => {
             <form className="flex justify-center" onSubmit={formSubmitHandler}>
                 <div className="relative inline-block">
                     {showToolTip && <Tooltip message="Clear fields" show={showToolTip} />}
-                    
+
                     <BiReset
                         className="mt-6 mr-2 text-[#694aff] hover:cursor-pointer"
                         onClick={clearInputFields}
@@ -85,7 +117,7 @@ const InputDateForm = () => {
                 </div>
                 <div className="flex flex-col">
                     <label htmlFor="day" className={`label-date text-gray-500`}>DAY</label>
-                    <input type="number" id="day" placeholder="DD" required className="input-date" ref={dayRef}></input>
+                    <input type="number" id="day" placeholder="DD" min="1" max="" required className="input-date" ref={dayRef}></input>
                     {!validDay && <p className={`text-[8px] mt-1 text-red-500`}>Must be a valid day</p>}
                 </div>
                 <div className="flex flex-col">
