@@ -59,10 +59,15 @@ const InputDateForm = () => {
         return currentMonth - birthMonth
     }
 
-    const yearsDiff = (birthYear) => {
-        const currentYear = new Date().getFullYear()
+    const yearsDiff = (completeBirthDate) => {
+        const birthDate = new Date(completeBirthDate)
+        const currentDate = new Date()
 
-        return currentYear - birthYear
+        if (currentDate.getMonth() <= birthDate.getMonth() && currentDate.getDate() < birthDate.getDate() || currentDate.getMonth() < birthDate.getMonth()) {
+            return (currentDate.getFullYear() - birthDate.getFullYear() - 1)
+        }
+
+        return currentDate.getFullYear() - birthDate.getFullYear()
     }
 
     const formSubmitHandler = (event) => {
@@ -72,7 +77,7 @@ const InputDateForm = () => {
         const month = event.target.month.value
         const year = event.target.year.value
         let [localValidDay, localValidMonth, localValidYear] = [true, true, true]
-        const dateFromForm = `${month}/${day}/${year}`
+        const birthDate = `${month}/${day}/${year}`
 
         if (!thisDayIsValid(day)) {
             localValidDay = false
@@ -96,9 +101,9 @@ const InputDateForm = () => {
         }
 
         if (localValidDay && localValidMonth && localValidYear) {
-            setResultYear(yearsDiff(year))
+            setResultYear(yearsDiff(birthDate))
             setResultMonth(monthsDiff(month))
-            // setResultDay(daysDiff(dateFromForm))
+            // setResultDay(daysDiff(birthDate))
         }
     }
 
