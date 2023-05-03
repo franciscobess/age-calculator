@@ -1,5 +1,13 @@
 # Age Calculator
 
-by Francisco Edenilson based on a Frontend Mentor challenge
+Age calculator created based on a Frontend Mentor challenge using React and Tailwind CSS.
 
-![Age calculator](./readme_content/age-calculator-overview.png)
+This application allows the user to quickly discover how much years, months and days he lived.
+
+# Overview
+
+![Age calculator overview](./readme_content/overview.gif)
+
+<h4 align="center"> 
+	🚧 This app still is a work in progress... 🚧
+</h4>
