@@ -43,20 +43,40 @@ const InputDateForm = () => {
         yearRef.current.value = ""
     }
 
-    const daysDiff = (date) => {
-        const givenDate = new Date(date)
+    const aniversaryAlreadyPassed = (completeBirthDate) => {
+        const birthDate = new Date(completeBirthDate)
         const currentDate = new Date()
-        const lastBirthDay = new Date(`${givenDate.getMonth() + 1}/${givenDate.getDate()}/${currentDate.getFullYear()}`)
-    }
 
-    const monthsDiff = (birthMonth) => {
-        const currentMonth = new Date().getMonth() + 1
-
-        if (currentMonth < birthMonth) {
-            return birthMonth - currentMonth
+        if (currentDate.getMonth() > birthDate.getMonth() || currentDate.getMonth() === birthDate.getMonth() && currentDate.getDate() > birthDate.getDate()) {
+            return true
         }
 
-        return currentMonth - birthMonth
+        return false
+    }
+
+    const daysDiff = (completeBirthDate) => {
+        const birthDate = new Date(completeBirthDate)
+        const currentDate = new Date()
+
+        if (aniversaryAlreadyPassed(birthDate)) {
+            return 31 + currentDate.getDate() - birthDate.getDate()
+        }
+
+        return birthDate.getDate() - currentDate.getDate()
+    }
+
+    const monthsDiff = (completeBirthDate) => {
+        const birthDate = new Date(completeBirthDate)
+        const currentDate = new Date()
+        const currentMonth = currentDate.getMonth() + 1
+        const birthMonth = birthDate.getMonth() + 1
+
+        if (aniversaryAlreadyPassed(birthDate)) {
+            return currentMonth - birthMonth
+        }
+
+        return 12 - (birthMonth - currentMonth)
+
     }
 
     const yearsDiff = (completeBirthDate) => {
@@ -102,8 +122,8 @@ const InputDateForm = () => {
 
         if (localValidDay && localValidMonth && localValidYear) {
             setResultYear(yearsDiff(birthDate))
-            setResultMonth(monthsDiff(month))
-            // setResultDay(daysDiff(birthDate))
+            setResultMonth(monthsDiff(birthDate))
+            setResultDay(daysDiff(birthDate))
         }
     }
 
