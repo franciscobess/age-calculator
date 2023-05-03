@@ -141,18 +141,18 @@ const InputDateForm = () => {
                     />
                 </div>
                 <div className="flex flex-col">
-                    <label htmlFor="day" className={`label-date text-gray-500`}>DAY</label>
-                    <input type="number" id="day" placeholder="DD" min="1" max="" required className="input-date" ref={dayRef}></input>
+                    <label htmlFor="day" className={`label-date ${validDay ? 'text-gray-500' : 'text-red-500'}`}>DAY</label>
+                    <input type="number" id="day" placeholder="DD" min="1" max="" required className={`input-date ${validDay ? 'border-[#ccd5dd]' : 'border-[#EF4444]'}`} ref={dayRef}></input>
                     {!validDay && <p className={`text-[8px] mt-1 text-red-500`}>Must be a valid day</p>}
                 </div>
                 <div className="flex flex-col">
-                    <label htmlFor="month" className={`label-date text-gray-500 ml-3`}>MONTH</label>
-                    <input type="number" id="month" placeholder="MM" required className="input-date ml-3" ref={monthRef}></input>
+                    <label htmlFor="month" className={`label-date ml-3 ${validMonth ? 'text-gray-500' : 'text-red-500'}`}>MONTH</label>
+                    <input type="number" id="month" placeholder="MM" required className={`input-date ml-3 ${validMonth ? 'border-[#ccd5dd]' : 'border-[#EF4444]'}`} ref={monthRef}></input>
                     {!validMonth && <p className={`text-[8px] mt-1 ml-3 text-red-500`}>Must be a valid month</p>}
                 </div>
                 <div className="flex flex-col">
-                    <label htmlFor="year" className={`label-date text-gray-500 ml-3`}>YEAR</label>
-                    <input type="number" id="year" placeholder="YYYY" required className="input-date ml-3" ref={yearRef}></input>
+                    <label htmlFor="year" className={`label-date ml-3 ${validYear ? 'text-gray-500' : 'text-red-500'}`}>YEAR</label>
+                    <input type="number" id="year" placeholder="YYYY" required className={`input-date ml-3 ${validYear ? 'border-[#ccd5dd]' : 'border-[#EF4444]'}`} ref={yearRef}></input>
                     {!validYear && <p className={`text-[8px] mt-1 ml-3 text-red-500`}>Must be a valid year</p>}
                 </div>
                 <button type="submit" className="rounded-full w-[45px] h-[45px] bg-[#694aff] text-white ml-6 mt-16 flex justify-center items-center hover:cursor-pointer">

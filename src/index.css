@@ -6,7 +6,7 @@
 
 @layer components {
     .input-date {
-        @apply font-[38px] py-1 pl-3 pr-1 w-[90px] border-[1px] border-[#ccd5dd] outline-none rounded-[3px] font-bold;
+        @apply font-[38px] py-1 pl-3 pr-1 w-[90px] border-[1px] outline-none rounded-[3px] font-bold;
     }
     
     .label-date {
