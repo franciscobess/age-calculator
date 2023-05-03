@@ -41,6 +41,9 @@ const InputDateForm = () => {
         dayRef.current.value = ""
         monthRef.current.value = ""
         yearRef.current.value = ""
+        setResultDay("--")
+        setResultMonth("--")
+        setResultYear("--")
     }
 
     const aniversaryAlreadyPassed = (completeBirthDate) => {
